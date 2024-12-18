@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nextjs proxy demo
 
 ## Getting Started
 
-First, run the development server:
+```bash
+# prep requirements
+nvm use --lts
+nvm use default
+node -v
+npm install
+ls node_modules/.bin/next
+export PATH="$PATH:$(pwd)/node_modules/.bin"
+```
+
+## Run
 
 ```bash
-npm run dev
+# run the development that will call api via the proxy(by pass cors)
+npm dev
 # or
 yarn dev
 # or
-pnpm dev
-# or
-bun dev
+next dev
+
+# run the production that will call server api directly then cors error
+next build && next start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ไฟล์ที่เกี่ยวข้อง
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. [.env.development](.env.development): run `next dev`
+2. [.env.production](.env.production): run `next build` + `next start`
+3. [next.config.ts](next.config.ts): Next.js rewrites feature proxies requests based on URL mappings
+4. [app/proxydemo/page.tsx](app/proxydemo/page.tsx): Demo next proxy api (http://localhost:3000/proxydemo)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+กรณีที่โปรเจคที่กำลังทำอยู่เป็น Client Component และติด core สามารถ clone project นี้เป็น api proxy ให้ project แบบเร็วๆก็ได้
 
-## Learn More
+## References
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next Proxy](https://blog.logrocket.com/how-to-use-proxy-next-js/)
+- [NEXT Configuration](https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables#default-environment-variables)
